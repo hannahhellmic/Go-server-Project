@@ -1,0 +1,67 @@
+package main
+
+import (
+	b "bufio"
+	f "fmt"
+	"os"
+	"sort"
+	"strconv"
+	"strings"
+)
+
+func createArray() []int {
+	reader := b.NewReader(os.Stdin)
+	s, _ := reader.ReadString('\n')
+	s = strings.TrimSpace(s)
+	a := strings.Split(s, " ")
+	var arr []int
+	for _, v := range a {
+		var n, err = strconv.Atoi(v)
+		if err == nil {
+			arr = append(arr, n)
+		}
+	}
+	return arr
+}
+
+func mergeArrs(arr1 []int, arr2 []int) []int {
+	var i1, i2 int = 0, 0
+	var narr []int
+	for {
+		if i1 < len(arr1) && i2 < len(arr2) {
+			if arr1[i1] < arr2[i2] {
+				narr = append(narr, arr1[i1])
+				if i1 < len(arr1) {
+					i1++
+				}
+			} else {
+				narr = append(narr, arr2[i2])
+				if i2 < len(arr2) {
+					i2++
+				}
+			}
+		} else if i1 == len(arr1) && i2 < len(arr2) {
+			narr = append(narr, arr2[i2])
+			if i2 < len(arr2) {
+				i2++
+			}
+		} else if i1 < len(arr1) && i2 == len(arr2) {
+			narr = append(narr, arr1[i1])
+			if i1 < len(arr1) {
+				i1++
+			}
+		} else {
+			break
+		}
+
+	}
+	return narr
+}
+
+func main() {
+	var arr1 = createArray()
+	sort.Ints(arr1)
+	var arr2 = createArray()
+	sort.Ints(arr2)
+	f.Print(mergeArrs(arr1, arr2))
+}
