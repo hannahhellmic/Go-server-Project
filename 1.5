@@ -1,0 +1,17 @@
+package main
+
+import f "fmt"
+
+func getFact(a int) int {
+	var s int = 1
+	for i := 1; i <= a; i++ {
+		s *= i
+	}
+	return s
+}
+
+func main() {
+	var a int
+	f.Scan(&a)
+	f.Print(getFact(a))
+}
