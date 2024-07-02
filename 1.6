@@ -1,0 +1,48 @@
+package main
+
+import f "fmt"
+
+func isVowel(a string) string {
+	switch a {
+	case "a":
+		return "Yes"
+	case "e":
+		return "Yes"
+	case "i":
+		return "Yes"
+	case "o":
+		return "Yes"
+	case "y":
+		return "Yes"
+	case "u":
+		return "Yes"
+	case "а":
+		return "Yes"
+	case "е":
+		return "Yes"
+	case "ё":
+		return "Yes"
+	case "и":
+		return "Yes"
+	case "о":
+		return "Yes"
+	case "у":
+		return "Yes"
+	case "ы":
+		return "Yes"
+	case "э":
+		return "Yes"
+	case "ю":
+		return "Yes"
+	case "я":
+		return "Yes"
+	default:
+		return "No"
+	}
+}
+
+func main() {
+	var a string
+	f.Scan(&a)
+	f.Print(isVowel(a))
+}
