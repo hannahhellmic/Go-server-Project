@@ -1,0 +1,37 @@
+package main
+
+import (
+	b "bufio"
+	f "fmt"
+	"os"
+	"strconv"
+	"strings"
+)
+
+func main() {
+	reader := b.NewReader(os.Stdin)
+	s, _ := reader.ReadString('\n')
+	s = strings.TrimSpace(s)
+	a := strings.Split(s, " ")
+	var arr []int
+	for _, v := range a {
+		var n, w = strconv.Atoi(v)
+		if w == nil {
+			arr = append(arr, n)
+		}
+	}
+
+	var elem int
+	f.Scanln(&elem)
+	var found bool = false
+	for i := 0; i < len(arr); i++ {
+		if arr[i] == elem {
+			f.Print(i)
+			found = true
+			break
+		}
+	}
+	if found == false {
+		f.Print(-1)
+	}
+}
