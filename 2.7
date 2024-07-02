@@ -1,0 +1,31 @@
+package main
+
+import (
+	b "bufio"
+	f "fmt"
+	"os"
+	"strings"
+)
+
+func isPalindrome(s string) bool {
+	r := []rune(s)
+	for i := 0; i < len(r)/2; i++ {
+		if r[i] != r[len(r)-i-1] {
+			return false
+		}
+	}
+	return true
+}
+
+// если что тут учитывывается количество пробелов
+
+func main() {
+	reader := b.NewReader(os.Stdin)
+	s, _ := reader.ReadString('\n')
+	s = strings.TrimSuffix(s, "\n")
+	if isPalindrome(s) {
+		f.Println("Yes")
+	} else {
+		f.Println("No")
+	}
+}
