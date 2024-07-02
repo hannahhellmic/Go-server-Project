@@ -1,0 +1,13 @@
+package main
+
+import f "fmt"
+
+func getSum(a int, b int) int {
+	return a + b
+}
+
+func main() {
+	var a, b int
+	f.Scan(&a, &b)
+	f.Println(getSum(a, b))
+}
