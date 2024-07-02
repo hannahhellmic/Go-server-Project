@@ -1,0 +1,41 @@
+package main
+
+import (
+	b "bufio"
+	f "fmt"
+	"os"
+	"strings"
+)
+
+func addToMap(m map[uint8][2]int, n int) {
+	reader := b.NewReader(os.Stdin)
+	s, _ := reader.ReadString('\n')
+	s = strings.TrimSuffix(s, "\n")
+	for i := 0; i < len(s); i++ {
+		if _, already := m[s[i]]; already {
+			val := m[s[i]]
+			val[n]++
+			m[s[i]] = val
+		} else {
+			val := [2]int{0, 0}
+			val[n] = 1
+			m[s[i]] = val
+		}
+	}
+}
+
+func checkAnagramm(m map[uint8][2]int) string {
+	for _, v := range m {
+		if v[0] != v[1] {
+			return "No"
+		}
+	}
+	return "Yes"
+}
+
+func main() {
+	var m = make(map[uint8][2]int)
+	addToMap(m, 0)
+	addToMap(m, 1)
+	f.Println(checkAnagramm(m))
+}
