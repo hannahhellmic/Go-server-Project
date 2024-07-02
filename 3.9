@@ -1,0 +1,48 @@
+package main
+
+import (
+	b "bufio"
+	f "fmt"
+	"os"
+	"sort"
+	"strconv"
+	"strings"
+)
+
+func createArray() []int {
+	reader := b.NewReader(os.Stdin)
+	s, _ := reader.ReadString('\n')
+	s = strings.TrimSpace(s)
+	a := strings.Split(s, " ")
+	var arr []int
+	for _, v := range a {
+		var n, err = strconv.Atoi(v)
+		if err == nil {
+			arr = append(arr, n)
+		}
+	}
+	return arr
+}
+
+func binSearch(arr []int, el int) int {
+	mi, ma := 0, len(arr)-1
+	for mi <= ma {
+		av := (mi + ma) / 2
+		if arr[av] < el {
+			mi = av + 1
+		} else if arr[av] > el {
+			ma = av - 1
+		} else if arr[av] == el {
+			return av
+		}
+	}
+	return -1
+}
+
+func main() {
+	var arr = createArray()
+	sort.Ints(arr)
+	var el int
+	f.Scanln(&el)
+	f.Println(binSearch(arr, el))
+}
