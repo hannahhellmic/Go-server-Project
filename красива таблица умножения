@@ -1,0 +1,58 @@
+package main
+
+import f "fmt"
+
+const (
+	Reset  = "\033[0m"
+	Red    = "\033[31m"
+	Green  = "\033[32m"
+	Yellow = "\033[33m"
+	Blue   = "\033[34m"
+	Purple = "\033[35m"
+	Cyan   = "\033[36m"
+	White  = "\033[37m"
+)
+
+func main() {
+	var n int
+	f.Scan(&n)
+
+	//first line
+	f.Printf("%5s|", " ")
+	for i := 0; i <= 10; i++ {
+		if i == n {
+			f.Printf("%s%3d%s |", Green, i, Reset)
+		} else {
+			f.Printf("%3d |", i)
+		}
+	}
+	f.Print("\n")
+
+	//separation
+
+	for i := 0; i <= 11; i++ {
+		f.Printf("_____")
+	}
+	f.Print("\n")
+
+	// table
+	for i := 0; i <= 10; i++ {
+		if i == n {
+			f.Printf("%s%3d%s  |", Green, i, Reset)
+			for j := 0; j <= 10; j++ {
+				f.Printf("%s%3d%s |", Green, i*j, Reset)
+			}
+			f.Print("\n")
+		} else {
+			f.Printf("%3d  |", i)
+			for j := 0; j <= 10; j++ {
+				if j == n {
+					f.Printf("%s%3d%s |", Green, i*j, Reset)
+				} else {
+					f.Printf("%3d |", i*j)
+				}
+			}
+			f.Print("\n")
+		}
+	}
+}
