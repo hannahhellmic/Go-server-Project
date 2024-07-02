@@ -1,0 +1,27 @@
+package main
+
+import f "fmt"
+
+func fib(n int) []int {
+	if n <= 0 {
+		return []int{}
+	}
+	if n == 1 {
+		return []int{0}
+	}
+	var arr = make([]int, n)
+	arr[0] = 0
+	arr[1] = 1
+	for i := 2; i < n; i++ {
+		arr[i] = arr[i-1] + arr[i-2]
+	}
+	return arr
+}
+
+func main() {
+	var n int
+	f.Scan(&n)
+	for _, el := range fib(n) {
+		f.Print(el, " ")
+	}
+}
