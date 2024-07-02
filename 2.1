@@ -1,0 +1,30 @@
+package main
+
+import f "fmt"
+
+type Temperature struct {
+	celcius    float64
+	fahrenheit float64
+}
+
+func (t Temperature) CelsiusToFahrenheit() float64 {
+	return (t.celcius * 9 / 5) + 32
+}
+
+func (t Temperature) FahrenheitToCelsius() float64 {
+	return (t.fahrenheit - 32) * 5 / 9
+}
+
+func main() {
+	var temp Temperature
+	var typeScale string
+	var degree float64
+	f.Scan(&degree, &typeScale)
+	if typeScale == "C" {
+		temp.celcius = degree
+		f.Print(temp.CelsiusToFahrenheit())
+	} else if typeScale == "F" {
+		temp.fahrenheit = degree
+		f.Print(temp.FahrenheitToCelsius())
+	}
+}
