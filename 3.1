@@ -1,0 +1,37 @@
+package main
+
+import (
+	b "bufio"
+	f "fmt"
+	"os"
+	"strings"
+)
+
+func erasion(arr []string) []string {
+	var narr []string
+	for i := 0; i < len(arr); i++ {
+		var already bool = false
+		for j := 0; j < len(narr); j++ {
+			if arr[i] == narr[j] {
+				already = true
+				break
+			}
+		}
+		if !already {
+			narr = append(narr, arr[i])
+		}
+	}
+	return narr
+}
+
+func main() {
+	reader := b.NewReader(os.Stdin)
+	s, _ := reader.ReadString('\n')
+	s = strings.TrimSpace(s)
+	a := strings.Split(s, " ")
+	var arr []string
+	for _, v := range a {
+		arr = append(arr, v)
+	}
+	f.Print(erasion(arr))
+}
