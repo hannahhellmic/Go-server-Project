@@ -10,7 +10,6 @@ const (
 	Blue   = "\033[34m"
 	Purple = "\033[35m"
 	Cyan   = "\033[36m"
-	White  = "\033[37m"
 )
 
 func main() {
@@ -21,9 +20,9 @@ func main() {
 	f.Printf("%5s|", " ")
 	for i := 0; i <= 10; i++ {
 		if i == n {
-			f.Printf("%s%3d%s |", Green, i, Reset)
+			f.Printf("%s%3d%s |", Red, i, Reset)
 		} else {
-			f.Printf("%3d |", i)
+			f.Printf("%s%3d%s |", Green, i, Reset)
 		}
 	}
 	f.Print("\n")
@@ -38,16 +37,16 @@ func main() {
 	// table
 	for i := 0; i <= 10; i++ {
 		if i == n {
-			f.Printf("%s%3d%s  |", Green, i, Reset)
+			f.Printf("%s%3d%s  |", Red, i, Reset)
 			for j := 0; j <= 10; j++ {
-				f.Printf("%s%3d%s |", Green, i*j, Reset)
+				f.Printf("%s%3d%s |", Red, i*j, Reset)
 			}
 			f.Print("\n")
 		} else {
-			f.Printf("%3d  |", i)
+			f.Printf("%s%3d%s  |", Green, i, Reset)
 			for j := 0; j <= 10; j++ {
 				if j == n {
-					f.Printf("%s%3d%s |", Green, i*j, Reset)
+					f.Printf("%s%3d%s |", Red, i*j, Reset)
 				} else {
 					f.Printf("%3d |", i*j)
 				}
