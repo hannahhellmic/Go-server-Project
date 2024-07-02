@@ -1,0 +1,23 @@
+package main
+
+import (
+	"bufio"
+	f "fmt"
+	"os"
+	"strings"
+)
+
+func getLength(s string) int {
+	var length int = 0
+	for range s {
+		length++
+	}
+	return length
+}
+
+func main() {
+	reader := bufio.NewReader(os.Stdin)
+	s, _ := reader.ReadString('\n')
+	s = strings.TrimSpace(s)
+	f.Print(getLength(s))
+}
