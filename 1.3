@@ -1,0 +1,17 @@
+package main
+
+import f "fmt"
+
+func oddEven(a int) string {
+	if a%2 == 0 {
+		return "even"
+	} else {
+		return "odd"
+	}
+}
+
+func main() {
+	var a int
+	f.Scan(&a)
+	f.Print(oddEven(a))
+}
