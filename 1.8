@@ -1,0 +1,18 @@
+package main
+
+import f "fmt"
+
+func getReverse(s string) string {
+	var t = len(s)
+	var r = []rune(s)
+	for i := 0; i < t/2; i++ {
+		r[i], r[t-i-1] = r[t-i-1], r[i]
+	}
+	return string(r)
+}
+
+func main() {
+	var s string
+	f.Scan(&s)
+	f.Print(getReverse(s))
+}
