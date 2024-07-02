@@ -1,0 +1,36 @@
+package main
+
+import (
+	b "bufio"
+	f "fmt"
+	"math"
+	"os"
+	"strconv"
+	"strings"
+)
+
+func main() {
+	reader := b.NewReader(os.Stdin)
+	s, _ := reader.ReadString('\n')
+	s = strings.TrimSpace(s)
+	a := strings.Split(s, " ")
+	var arr []int
+	for _, v := range a {
+		var n, w = strconv.Atoi(v)
+		if w == nil {
+			arr = append(arr, n)
+		}
+	}
+
+	var mi int = math.MaxInt
+	var ma int = math.MinInt
+	for _, el := range arr {
+		if el < mi {
+			mi = el
+		}
+		if el > ma {
+			ma = el
+		}
+	}
+	f.Print(mi, ma)
+}
