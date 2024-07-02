@@ -1,0 +1,29 @@
+package main
+
+import (
+	"bufio"
+	"fmt"
+	"os"
+	"strconv"
+	"strings"
+)
+
+func main() {
+	reader := bufio.NewReader(os.Stdin)
+	s, _ := reader.ReadString('\n')
+	s = strings.TrimSpace(s)
+	a := strings.Split(s, " ")
+	var arr []int
+	for _, v := range a {
+		var n, w = strconv.Atoi(v)
+		if w == nil {
+			arr = append(arr, n)
+		}
+	}
+
+	var total int
+	for _, el := range arr {
+		total += el
+	}
+	fmt.Print(total)
+}
