@@ -1,0 +1,53 @@
+package main
+
+import f "fmt"
+
+type Stack []int
+
+func (s *Stack) Push(v int) {
+	*s = append(*s, v)
+}
+
+func (s *Stack) Pop() int {
+	if len(*s) == 0 {
+		return -1
+	}
+	l := len(*s)
+	v := (*s)[l-1]
+	*s = (*s)[:l-1]
+	return v
+}
+
+type Queue struct {
+	stack1 Stack
+	stack2 Stack
+}
+
+func (q *Queue) Push(v int) {
+	q.stack1.Push(v)
+}
+
+func (q *Queue) Pop() int {
+	if len(q.stack2) == 0 {
+		for len(q.stack1) != 0 {
+			q.stack2.Push(q.stack1.Pop())
+		}
+	}
+	return q.stack2.Pop()
+}
+
+// -1 когда пусто
+func main() {
+	q := Queue{}
+	q.Push(8)
+	q.Push(10)
+	f.Println(q.Pop())
+	q.Push(15)
+	f.Println(q.Pop())
+	q.Push(7)
+	f.Println(q.Pop())
+	f.Println(q.Pop())
+	q.Push(3)
+	f.Println(q.Pop())
+	f.Println(q.Pop())
+}
