@@ -1,0 +1,25 @@
+package main
+
+import f "fmt"
+
+func main() {
+	m := make(map[string][]int)
+	for i := 0; i < 10; i++ {
+		if i%2 != 0 {
+			if _, already := m["odd"]; already {
+				m["odd"] = append(m["odd"], i)
+			} else {
+				m["odd"] = []int{i}
+			}
+		} else {
+			if _, already := m["even"]; already {
+				m["even"] = append(m["even"], i)
+			} else {
+				m["even"] = []int{i}
+			}
+		}
+	}
+	for k, v := range m {
+		f.Printf("%s : %d\n", k, v)
+	}
+}
