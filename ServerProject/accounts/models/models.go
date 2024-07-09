@@ -1,6 +1,7 @@
 package models
 
 type Account struct {
-	Name   string
-	Amount int
+	Name         string
+	Amount       int
+	Transactions []string
 }
