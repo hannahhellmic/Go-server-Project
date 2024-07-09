@@ -25,25 +25,21 @@ type Command struct {
 func (c *Command) Do() error {
 	switch c.Cmd {
 	case "create":
-
 		return c.create()
 	case "get":
-
 		return c.get()
 	case "delete":
-
 		return c.delete()
 	case "patch":
-
 		return c.patch()
 	case "change":
-
 		return c.change()
 	case "transfer":
-
 		return c.transfer()
 	case "get_all":
 		return c.get_all()
+	case "transactions":
+		return c.transactions()
 	default:
 		return fmt.Errorf("unknown command: %s", c.Cmd)
 	}
@@ -259,6 +255,37 @@ func (c *Command) get_all() error {
 	for _, account := range response {
 		fmt.Printf("account name: %s, amount: %d\n", account.Name, account.Amount)
 	}
+
+	return nil
+}
+
+func (c *Command) transactions() error {
+	resp, err := http.Get(
+		fmt.Sprintf("http://%s:%d/account/transactions?name=%s", c.Host, c.Port, c.Name),
+	)
+	if err != nil {
+		return fmt.Errorf("http get failed: %w", err)
+	}
+
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		body, err := io.ReadAll(resp.Body)
+		if err != nil {
+			return fmt.Errorf("read body failed: %w", err)
+		}
+		return fmt.Errorf("resp error %s", string(body))
+	}
+
+	var responce dto.GetAccountResponse
+	if err := json.NewDecoder(resp.Body).Decode(&responce); err != nil {
+		return fmt.Errorf("json decode failed: %w", err)
+	}
+
+	for _, transaction := range responce.Transactions {
+		fmt.Printf("%s: %s\n", responce.Name, transaction)
+	}
+
 	return nil
 }
 
