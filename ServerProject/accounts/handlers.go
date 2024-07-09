@@ -3,6 +3,7 @@ package accounts
 import (
 	"awesomeProject/accounts/dto"
 	"awesomeProject/accounts/models"
+	"fmt"
 	"github.com/labstack/echo/v4"
 	"net/http"
 	"sort"
@@ -42,9 +43,13 @@ func (h *Handler) CreateAccount(c echo.Context) error {
 	}
 
 	h.accounts[request.Name] = &models.Account{
-		Name:   request.Name,
-		Amount: request.Amount,
+		Name:         request.Name,
+		Amount:       request.Amount,
+		Transactions: make([]string, 0),
 	}
+
+	str := fmt.Sprintf("account for %s has been created with balance %d", request.Name, request.Amount)
+	h.accounts[request.Name].Transactions = append(h.accounts[request.Name].Transactions, str)
 
 	h.guard.Unlock()
 
@@ -106,6 +111,9 @@ func (h *Handler) PathAccount(c echo.Context) error {
 	}
 
 	account.Amount += request.SumChange
+	str := fmt.Sprintf("account updated with balance %d", account.Amount)
+	account.Transactions = append(account.Transactions, str)
+
 	return c.NoContent(http.StatusOK)
 }
 
@@ -124,6 +132,8 @@ func (h *Handler) ChangeAccount(c echo.Context) error {
 	h.accounts[newName] = h.accounts[name]
 	h.accounts[newName].Name = newName
 	delete(h.accounts, name)
+	str := fmt.Sprintf("account name has been changed from %s to %s", name, newName)
+	h.accounts[newName].Transactions = append(h.accounts[newName].Transactions, str)
 
 	return c.NoContent(http.StatusNoContent)
 }
@@ -158,6 +168,10 @@ func (h *Handler) TransferAccount(c echo.Context) error {
 
 	nameFrom.Amount -= request.Amount
 	nameTo.Amount += request.Amount
+	str1 := fmt.Sprintf("%d delivered to %s", request.Amount, nameTo.Name)
+	nameFrom.Transactions = append(nameFrom.Transactions, str1)
+	str2 := fmt.Sprintf("%d recieved from %s", request.Amount, nameFrom.Name)
+	nameTo.Transactions = append(nameTo.Transactions, str2)
 	return c.NoContent(http.StatusOK)
 }
 
@@ -178,4 +192,25 @@ func (h *Handler) ListAccounts(c echo.Context) error {
 	})
 
 	return c.JSON(http.StatusOK, allAccounts)
+}
+
+func (h *Handler) TransactionsList(c echo.Context) error {
+	name := c.QueryParams().Get("name")
+
+	h.guard.RLock()
+
+	account, ok := h.accounts[name]
+
+	h.guard.RUnlock()
+
+	if !ok {
+		return c.String(http.StatusNotFound, "account not found")
+	}
+
+	response := dto.GetAccountResponse{
+		Name:         account.Name,
+		Transactions: account.Transactions,
+	}
+
+	return c.JSON(http.StatusOK, response)
 }
