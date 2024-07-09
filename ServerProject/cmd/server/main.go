@@ -21,6 +21,7 @@ func main() {
 	e.PATCH("/account/change", accountsHandler.ChangeAccount)
 	e.PATCH("/account/transfer", accountsHandler.TransferAccount)
 	e.GET("account/all", accountsHandler.ListAccounts)
+	e.GET("account/transactions", accountsHandler.TransactionsList)
 
 	e.Logger.Fatal(e.Start(":1323"))
 }
