@@ -1,0 +1,60 @@
+syntax = "proto3";
+
+package bank;
+
+option go_package = "grpc/protobufs;bank";
+
+service BankAccountService {
+  rpc Create(CreateRequest) returns (CreateResponse);
+  rpc Get(GetRequest) returns (GetResponse);
+  rpc UpdateBalance(UpdateBalanceRequest) returns (UpdateBalanceResponse);
+  rpc Delete(DeleteRequest) returns (DeleteResponse);
+  rpc UpdateName(UpdateNameRequest) returns (UpdateNameResponse);
+}
+
+message CreateRequest {
+  string name = 1;
+  int64 balance = 2;
+}
+
+message CreateResponse {
+  string name = 1;
+  int64 balance = 2;
+}
+
+message GetRequest {
+  string name = 1;
+}
+
+message GetResponse {
+  string name = 1;
+  int64 balance = 2;
+}
+
+message UpdateBalanceRequest {
+  string name = 1;
+  int64 balance = 2;
+}
+
+message UpdateBalanceResponse {
+  string name = 1;
+  int64 balance = 2;
+}
+
+message DeleteRequest {
+  string name = 1;
+}
+
+message DeleteResponse {
+  string name = 1;
+}
+
+message UpdateNameRequest {
+  string name = 1;
+  string newName = 2;
+}
+
+message UpdateNameResponse {
+  string name = 1;
+  string newName = 2;
+}
